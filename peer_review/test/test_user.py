@@ -43,6 +43,7 @@ class UserTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'peer_review/questionnaireAdmin.html')
 
+    # Simple test to see if userdAdmin is rendered
     def test_user_list(self):
         print("--- user_list Test ---\n")
         self.client.login(username='1234', password='bob')
@@ -50,6 +51,47 @@ class UserTests(TestCase):
         response = self.client.get(url, follow = True)
         print(response.context['users']())
         self.assertIn(self.user, response.context['users']())
+
+    # Simple test to see if accountDetails is rendered
+    def test_account_details(self):
+        self.client.login(username='bob@bob.com', password='bob')
+        url = '/accountDetails/1234'
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'peer_review/accountDetails.html')
+
+    # Simple test to see if login is rendered
+    def test_login(self):
+        self.client.login(username='bob@bob.com', password='bob')
+        url = reverse('login')
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'peer_review/login.html')
+
+    # Simple test to see if maintainRound is rendered
+    def test_maintain_round(self):
+        self.client.login(username='bob@bob.com', password='bob')
+        url = reverse('maintainRound')
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'peer_review/maintainRound.html')
+
+    # Simple test to see if activeRounds is rendered
+    def test_active_rounds(self):
+        self.client.login(username='bob@bob.com', password='bob')
+        url = 'activeRounds/'
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'peer_review/activeRounds.html')
+
+    # Simple test to see if maintainTeam is rendered
+    def test_maintain_team(self):
+        self.client.login(username='bob@bob.com', password='bob')
+        url = 'maintainTeam'
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'peer_review/maintainTeam.html')
+
         print("\n--- END ---\n")
 
     # Unit Test
