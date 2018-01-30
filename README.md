@@ -1,13 +1,11 @@
--------------
 # Pinocchio
--------------
 [![Build Status](https://travis-ci.org/teampinocchio/pinocchio.svg?branch=master)](https://travis-ci.org/teampinocchio/pinocchio)
 [![Stories in Ready](https://badge.waffle.io/teampinocchio/pinocchio.png?label=ready&title=Ready)](https://waffle.io/teampinocchio/pinocchio)
 
 -------------
 
 ### Installation Instructions
-- Clone the Pinocchio repository and `cd` into it.
+- Clone the Pinocchio repository and `cd` into it
     - `git clone git@github.com:teampinocchio/pinocchio.git`
     - `cd pinocchio/`
 - _(Recommended)_ Create a new Python 3 virtual environment
