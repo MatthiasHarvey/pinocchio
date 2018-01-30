@@ -6,7 +6,7 @@
 
 ### Installation Instructions
 - Clone the Pinocchio repository and `cd` into it
-    - `git clone git@github.com:teampinocchio/pinocchio.git`
+    - `git clone https://github.com/teampinocchio/pinocchio.git`
     - `cd pinocchio/`
 - _(Recommended)_ Create a new Python 3 virtual environment
     - Create it: `python3 -m venv ./environment`
