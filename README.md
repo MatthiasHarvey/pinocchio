@@ -34,6 +34,6 @@ To use your own settings file, append the following line at the end of your cust
 
 This will pull all extra settings from the `globalSettings.py` script.
 
-We prefer [deplyoing Pinocchio with WSGI.](https://docs.djangoproject.com/en/1.11/howto/deployment/wsgi/)
+We prefer [deploying Pinocchio with WSGI.](https://docs.djangoproject.com/en/1.11/howto/deployment/wsgi/)
 
 -------------
