@@ -25,7 +25,7 @@
         {% if not preview %}
         getResponses({{ q.question.id }}, function (responses)
         {
-            if (responses.answers.length != 0)
+            if (responses.answers.length !== 0)
             {
                 {% if grouping == "None" %}
                     $("#{{ q.question.id }}").find('[value="'+responses.answers[0]+'"]').prop('checked', true);
@@ -43,18 +43,17 @@
 <p><strong>{{ number|add:"1" }}</strong>. {{ q.question.questionText }}</p>
 {% if grouping == "None" %}
     {% for choice in q.question.get_choices %}
-            <div class="radio">
-                <label><input type="radio" name="{{ number }}" value="{{ choice }}">{{ choice.choiceText }}</label>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="{{ number }}" value="{{ choice }}" id="{{ number }}{{ choice }}"><label class="form-check-label" for="{{ number }}{{ choice }}">{{ choice.choiceText }}</label>
             </div>
     {% endfor %}
 {% elif grouping == "Label" %}
-    {% for lbls in questionLabels %}
-        {% for labl in lbls %}
+    {% for labl in lbls %}
             {% ifequal labl.questionOrder.pk q.pk %}
                 <h4>{{ labl.labelText }}</h4>
                 {% for choice in q.question.get_choices %}
-                    <div class="radio">
-                        <label><input type="radio" name = "{{ labl.pk }} "data-labelid = "{{ labl.pk }}" value="{{ choice }}">{{ choice.choiceText }}</label>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name = "{{ labl.pk }} " data-labelid = "{{ labl.pk }}" value="{{ choice }}" id="{{ choice }}{{ labl.pk }}"><label class="form-check-label" for="{{ choice }}{{ labl.pk }}">{{ choice.choiceText }}</label>
                     </div>
                 {% endfor %}
             {% endifequal %}
@@ -64,9 +63,9 @@
     {% for u in teamMembers %}
         <h4>{{ u.name }} {{ u.surname }}</h4>
         {% for choice in q.question.get_choices %}
-            <div class="radio">
-                <label><input type="radio" name = "{{ u.pk }}" data-labelid = "{{ u.pk }}" value="{{ choice }}">{{ choice.choiceText }}</label>
-            </div> 
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name = "{{ u.pk }}" data-labelid = "{{ u.pk }}" value="{{ choice }}" id="{{ u.pk }}{{ choice }}"><label class="form-check-label" for="{{ u.pk }}{{ choice }}">{{ choice.choiceText }}</label>
+            </div>
         {% endfor %}
     {% endfor %}
 {% elif grouping == "Rest" %}
@@ -74,9 +73,9 @@
         {% if u != currentUser %}
             <h4>{{ u.name }} {{ u.surname }}</h4>
             {% for choice in q.question.get_choices %}
-                <div class="radio">
-                    <label><input type="radio" name = "{{ u.pk }}{{q.question.pk}}"  data-labelid = "{{ u.pk }}" value="{{ choice }}">{{ choice.choiceText }}</label>
-                </div> 
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name = "{{ u.pk }}{{q.pk}}"  data-labelid = "{{ u.pk }}" value="{{ choice }}" id="{{ u.pk }}{{ choice }}"><label class="form-check-label" for="{{ u.pk }}{{ choice }}">{{ choice.choiceText }}</label>
+                </div>
             {% endfor %}
         {% endif %}
     {% endfor %}

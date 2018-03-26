@@ -13,15 +13,11 @@ from django.template import loader
 
 
 @admin_required
-def maintain_team(request):
+def maintain_team(request, round_pk=0):
     context = {'users': User.objects.filter(Q(is_active=1) & (Q(status='S') | Q(status='U'))),
                'rounds': RoundDetail.objects.all(),
-               'teams': TeamDetail.objects.all()}
-
-    if request.method == "POST":
-        round_pk = request.POST.get("roundPk")
-        context['preselectedRoundPk'] = int(round_pk)
-
+               'teams': TeamDetail.objects.all(),
+               'preselectedRoundPk': int(round_pk)}
     return render(request, 'peer_review/maintainTeam.html', context)
 
 
@@ -38,8 +34,9 @@ def change_user_team_for_round(request, round_pk, user_id, team_name):
     try:
         team = TeamDetail.objects.filter(user_id=user_id).get(roundDetail_id=round_pk)
     except TeamDetail.DoesNotExist:
+        user = User.objects.get(user_id=user_id)
         team = TeamDetail(
-            user=get_object_or_404(User, user_id=user_id),
+            user=user,
             roundDetail=get_object_or_404(RoundDetail, pk=round_pk)
         )
 
@@ -152,7 +149,6 @@ def submit_team_csv(request):
     if not request.user.is_authenticated():
         return user_error(request)
 
-    global error_type
     if request.method == 'POST':
         form = DocumentForm(request.POST, request.FILES)
 
@@ -192,7 +188,8 @@ def submit_team_csv(request):
                             error_type = "Not all fields contain values."
                         elif valid == 4:
                             error_type = "One of these headers does not exist, 'user_id', 'round_name', or 'team_name'."
-
+                        else:
+                            error_type = "None"
                         os.remove(file_path)
                         return render(request, 'peer_review/csvTeamError.html',
                                       {'message': message, 'row': row_list, 'error': error_type})

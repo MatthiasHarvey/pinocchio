@@ -1,6 +1,6 @@
 from datetime import datetime, timezone, timedelta
-from peer_review.models import Questionnaire, RoundDetail, User, Question, FreeformItem, Choice, QuestionOrder, Response, \
-    QuestionType, QuestionGrouping
+from peer_review.models import Questionnaire, RoundDetail, User, Question, FreeFormItem, Choice, QuestionOrder, Response, \
+    QuestionType
 import time
 
 
@@ -15,31 +15,30 @@ class TestSetup:
         future2_date = datetime.now(timezone(timedelta(hours=12)))
 
         self.round1 = RoundDetail.objects.create(name='test round 1 past', questionnaire=self.questionnaire,
-                                                startingDate=past1_date,
-                                                endingDate=past2_date,
-                                                description='A round which is over and done')
+                                                 startingDate=past1_date,
+                                                 endingDate=past2_date,
+                                                 description='A round which is over and done')
         self.round2 = RoundDetail.objects.create(name='test round  2 running', questionnaire=self.questionnaire,
-                                                startingDate=past1_date,
-                                                endingDate=future2_date,
-                                                description='A long round which is currently running')
+                                                 startingDate=past1_date,
+                                                 endingDate=future2_date,
+                                                 description='A long round which is currently running')
         self.round3 = RoundDetail.objects.create(name='test round 3 future', questionnaire=self.questionnaire,
-                                                startingDate=future1_date,
-                                                endingDate=future2_date,
-                                                description='A round which is in the future ')
+                                                 startingDate=future1_date,
+                                                 endingDate=future2_date,
+                                                 description='A round which is in the future ')
         self.round4 = RoundDetail.objects.create(name='test round 4 running', questionnaire=self.questionnaire,
                                                  startingDate=past2_date,
                                                  endingDate=future1_date,
                                                  description='A short round which is currently running')
 
-
-        self.user = User.objects.create_user('bob@bob.com', 'bob', 'bob', 'simons', user_id=12345)
+        self.user = User.objects.create_user('bob@bob.com', 'bob', 'bob', 'simon', user_id=12345)
         self.user2 = User.objects.create_user('joe@gmail.com', 'joe', 'Smith', '12345', user_id=6789)
 
         self.question1 = Question.objects.create(questionText="Hey I'm a question number 1",
                                                  questionLabel="I'm the label",
                                                  pubDate=datetime.now(timezone(timedelta(hours=2))),
-                                                 questionType=QuestionType.objects.create(name="Freeform"))
-        FreeformItem.objects.create(question=self.question1, freeformType="Paragraph")
+                                                 questionType=QuestionType.objects.create(name="FreeForm"))
+        FreeFormItem.objects.create(question=self.question1, freeFormType="Paragraph")
 
         self.question2 = Question.objects.create(questionText="Different question here",
                                                  questionLabel="I'm the label for the question",
